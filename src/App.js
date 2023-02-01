@@ -3,6 +3,7 @@ import Badge from 'react-bootstrap/Badge';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card'
 import { marked } from 'marked';
 
 marked.setOptions( {
@@ -42,14 +43,15 @@ export default class App extends React.Component
     render()
     {
         let inputStyle = {
-            minWidth: '33vw',
-            height: '50vh',
+            minWidth: '40vw',
+            minHeight: '60vh',
             marginLeft: 'auto',
             marginRight: 'auto',
-            padding: '0.7rem'
+            padding: '0.7rem',
+            overflow: 'hidden',
         };
         let outputStyle = {
-            maxWidth: '33vw',
+            maxWidth: '40vw',
             minHeight: '50vh',
             background: '#DCDCDC',
             marginLeft: 'auto',
@@ -63,7 +65,7 @@ export default class App extends React.Component
                     <Row className='mt-4'>
                         <Col className='text-center'>
                             <h1>
-                                <Badge className="text-align-center" bg="dark" variant="dark">
+                                <Badge className="text-align-center" bg="primary">
                                     Markdown Previewer
                                 </Badge>
                             </h1>
@@ -72,16 +74,16 @@ export default class App extends React.Component
                 </Container>
 
                 <Row className='m-4'>
-                    <Col className='p-4'>
+                    <Col>
                         <Col className='text-center mt-4'>
                             <h4>
-                                <Badge className='text-align-center' bg='secondary' variant='secondary'>
+                                <Badge className='text-align-center' bg='primary'>
                                     Markdown Input
                                 </Badge>
                             </h4>
                         </Col>
                         <Col className='mark-input text-center mt-4'>
-                            <textarea className='input'
+                            <textarea className='bordered'
                                 id='editor'
                                 style={ inputStyle }
                                 value={ this.state.markdown }
@@ -96,16 +98,16 @@ export default class App extends React.Component
                         </Col>
                     </Col>
 
-                    <Col className='p-4'>
+                    <Col>
                         <Col className='text-center mt-4'>
                             <h4>
-                                <Badge className='text-align-center' bg='secondary' variant='secondary'>
+                                <Badge className='text-align-center' bg='primary'>
                                     Markdown Preview
                                 </Badge>
                             </h4>
                         </Col>
                         <Col
-                            className='mt-4'
+                            className='mt-4 bordered'
                             id='preview'
                             style={ outputStyle }
                             dangerouslySetInnerHTML={ { __html: marked( this.state.markdown ) } }
