@@ -58,7 +58,7 @@ export default class App extends React.Component
             overflowX: 'scroll'
         };
         return (
-            <Container fluid bg='dark' className='App'>
+            <Container fluid className='App'>
                 <Container>
                     <Row className='mt-4'>
                         <Col className='text-center'>
