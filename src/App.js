@@ -1,9 +1,13 @@
 import React from 'react';
 import Badge from 'react-bootstrap/Badge';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { marked } from 'marked';
+
+marked.setOptions( {
+    breaks: true
+} );
 
 export default class App extends React.Component
 {
@@ -11,7 +15,22 @@ export default class App extends React.Component
     {
         super( props );
         this.state = {
-            markdown: '',
+            markdown: ( `# Heading 1
+## heading 2
+[Google](https://google.com)
+
+\`code\`
+
+    code block
+
+- list item
+
+> Block Quote
+
+**Bold**
+
+![Image](https://images.pexels.com/photos/9595458/pexels-photo-9595458.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)
+`),
         };
     }
 
@@ -23,22 +42,23 @@ export default class App extends React.Component
     render()
     {
         let inputStyle = {
-            width: '33vw',
+            minWidth: '33vw',
             height: '50vh',
             marginLeft: 'auto',
             marginRight: 'auto',
             padding: '0.7rem'
         };
         let outputStyle = {
-            width: '33vw',
-            height: '50vh',
+            maxWidth: '33vw',
+            minHeight: '50vh',
             background: '#DCDCDC',
             marginLeft: 'auto',
             marginRight: 'auto',
-            padding: '0.7rem'
+            padding: '0.7rem',
+            overflowX: 'scroll'
         };
         return (
-            <Container fluid className='App'>
+            <Container fluid bg='dark' className='App'>
                 <Container>
                     <Row className='mt-4'>
                         <Col className='text-center'>
@@ -63,16 +83,15 @@ export default class App extends React.Component
                         <Col className='mark-input text-center mt-4'>
                             <textarea className='input'
                                 id='editor'
-                                placeholder='Input Markdown Here'
-                                style= { inputStyle }
-                                value= { this.state.markdown }
-                                onChange= {
-                                    ( event ) => {
+                                style={ inputStyle }
+                                value={ this.state.markdown }
+                                onChange={
+                                    ( event ) =>
+                                    {
                                         this.updateMarkdown( event.target.value );
                                     }
                                 }
                             >
-
                             </textarea>
                         </Col>
                     </Col>
@@ -86,10 +105,10 @@ export default class App extends React.Component
                             </h4>
                         </Col>
                         <Col
-                            className='text-center mt-4'
+                            className='mt-4'
                             id='preview'
                             style={ outputStyle }
-                            dangerouslySetInnerHTML={ { __html: marked(this.state.markdown) } }
+                            dangerouslySetInnerHTML={ { __html: marked( this.state.markdown ) } }
                         >
                         </Col>
                     </Col>
